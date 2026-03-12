@@ -1,0 +1,53 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: content-box;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+#menu {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  justify-content: Center;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 5px 5px 5px lightblue;
+}
+
+.active {
+  color: red;
+}
+
+li.dropdown {
+  position: relative;
+  list-style: none;
+}
+
+li>button {
+  background-color: transparent;
+  border: none;
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+ul.submenu {
+  position: absolute;
+  z-index: 999;
+  top: 32px;
+  left: 12px;
+  padding: 12px;
+  background-color: white;
+  border-radius: 12px;
+  min-width: 300px;
+  box-shadow: 5px 5px 12px;
+}
+
+.lista{
+  display: block !important;
+  list-style: none;
+}
