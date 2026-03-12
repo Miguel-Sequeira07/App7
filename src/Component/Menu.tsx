@@ -2,12 +2,16 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom"
 import "../../node_modules/bootstrap/dist/css/bootstrap.css"
 import logo from "../assets/react.svg"
 import { useEffect, useRef, useState } from "react";
+import { useTheme } from "../context/ThemeContext";
 
 
 const Menu = () => {
     const navegador = useNavigate();
     const [open, setOpen]  = useState(false);
     const myref = useRef<HTMLUListElement>(null)
+    const { state, dispatch } = useTheme();
+    const isDark = state.mode === 'dark';
+
     const hanleMenu = () => {
         setOpen(!open);
     }
@@ -27,7 +31,7 @@ const Menu = () => {
         "Inverter Algarismos",
     ];
   return (
-    <div className="container">
+    <div className={`container${isDark ? ' theme-dark' : ''}`}>
         <div className="row">
             <div className="col-1">
                 <img src={logo} alt="logo" style={{width: "50px"}} onClick={()=> navegador("/")}/>
@@ -36,7 +40,7 @@ const Menu = () => {
                 <ul id="menu">
                     <NavLink to="/">Home</NavLink>
                     <NavLink to="/animais">Animais</NavLink>
-                    <NavLink to="#">Hooks</NavLink>
+                    <NavLink to="/hooks">Hooks</NavLink>
                     <li className="dropdown">
                         <button onClick={hanleMenu}>Exercicios</button>
                         {open && (
@@ -47,6 +51,20 @@ const Menu = () => {
                             </ul>
                         )}
                     </li>
+                    <li style={{listStyle:'none'}}>
+                        <button
+                            onClick={() => dispatch({ type: 'TOGGLE_THEME' })}
+                            title={isDark ? 'Mudar para modo claro' : 'Mudar para modo escuro'}
+                            style={{
+                                background: 'none',
+                                border: 'none',
+                                cursor: 'pointer',
+                                fontSize: '1.3em',
+                            }}
+                        >
+                            {isDark ? '☀️' : '🌙'}
+                        </button>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -55,7 +73,7 @@ const Menu = () => {
             <div className="col-12">
                 <h1 style={{
                     textAlign:"center", 
-                    color: "navy", 
+                    color: isDark ? '#90caf9' : "navy", 
                     fontSize: "1.4em"
                     }}
                 >Aplicação em React</h1>

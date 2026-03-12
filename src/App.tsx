@@ -3,6 +3,7 @@ import Menu from './Component/Menu'
 import Home from './Component/Home'
 import Animais from './Component/Animais'
 import Exercicios from './Component/Exercicios'
+import Hooks from './Component/Hooks'
 
 const App = () => {
   const rotas = createBrowserRouter(
@@ -11,6 +12,7 @@ const App = () => {
         <Route index element={<Home/>}></Route>
         <Route path="/animais" element={<Animais/>}></Route>
         <Route path="/exercicios/:id" element={<Exercicios/>}></Route>
+        <Route path="/hooks" element={<Hooks/>}></Route>
       </Route>
     )
   )
