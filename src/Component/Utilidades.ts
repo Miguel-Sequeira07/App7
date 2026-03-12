@@ -78,6 +78,15 @@ class Utilidades {
 
     return rslt.toString();
   }
+
+  static primos(input: string): string {
+    const num = parseInt(input);
+    if (isNaN(num) || num < 2) return `${num} não é primo`;
+    for (let i = 2; i <= Math.sqrt(num); i++) {
+      if (num % i === 0) return `${num} não é primo`;
+    }
+    return `${num} é primo`;
+  }
 }
 
 export default Utilidades;

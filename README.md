@@ -1,73 +1,88 @@
-# React + TypeScript + Vite
+# App7 — Demonstração de React Hooks
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeto de aula em **React + TypeScript + Vite** que demonstra o uso prático dos principais React Hooks, com um backend **Node.js + Express** a servir dados ao frontend.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Como instalar e arrancar
 
-## React Compiler
+### Frontend
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+A aplicação estará disponível em **http://localhost:5173**.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Backend (Express)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cd server
+npm install
+npm start
 ```
+
+O servidor estará disponível em **http://localhost:3001**.
+
+> **Nota:** Para a página *Animais* funcionar corretamente (fetch de dados), o backend deve estar em execução.
+
+---
+
+## ⚛️ Hooks demonstrados
+
+| Hook | Onde está implementado | O que faz |
+|---|---|---|
+| `useState` | `Menu.tsx`, `Exec.tsx`, `Hooks.tsx` | Estado local: dropdown, formulários, contador |
+| `useEffect` | `Menu.tsx`, `Animais.tsx`, `Hooks.tsx` | Fechar dropdown ao clicar fora; fetch à API; relógio em tempo real |
+| `useMemo` | `Exercicios.tsx`, `Hooks.tsx` | Memorizar o exercício selecionado; filtrar lista de números |
+| `useReducer` | `ThemeContext.tsx`, `Hooks.tsx` | Gerir o tema da app; mini carrinho de compras |
+| `useContext` | `Menu.tsx`, `Hooks.tsx` | Aceder ao tema global (dark/light) em qualquer componente |
+| `useRef` | `Menu.tsx`, `Hooks.tsx` | Referência ao submenu; focar input; contar renders |
+
+---
+
+## 📁 Estrutura de ficheiros
+
+```
+App7/
+├── src/
+│   ├── App.tsx                  ← Router principal (React Router DOM)
+│   ├── main.tsx                 ← Ponto de entrada; envolve a app com ThemeProvider
+│   ├── App.css / index.css      ← Estilos globais + dark mode
+│   ├── context/
+│   │   └── ThemeContext.tsx     ← useContext + useReducer (dark/light mode)
+│   └── Component/
+│       ├── Menu.tsx             ← Navbar com dropdown, toggle tema (useContext)
+│       ├── Home.tsx             ← Página inicial
+│       ├── Animais.tsx          ← Fetch à API Express (useEffect)
+│       ├── Exercicios.tsx       ← useMemo para selecionar exercício
+│       ├── Exec.tsx             ← Formulário de execução (useState)
+│       ├── Hooks.tsx            ← Página /hooks — demonstração de todos os hooks
+│       └── Utilidades.ts        ← dobro, selos, primos, inverterAlgarismos
+├── server/
+│   ├── index.js                 ← Servidor Express (GET /api/animais, GET /api/status)
+│   ├── package.json
+│   └── README.md
+├── package.json
+└── README.md
+```
+
+---
+
+## 🔌 API Endpoints (Backend)
+
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| GET | `/api/status` | `{ status: "ok", timestamp: ... }` |
+| GET | `/api/animais` | Lista de animais em JSON |
+
+---
+
+## 📚 Tecnologias
+
+- React 19 + TypeScript
+- Vite
+- React Router DOM v7
+- Bootstrap 5
+- Node.js + Express (backend)

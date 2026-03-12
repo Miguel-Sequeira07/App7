@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import Utilidades from "./Utilidades";
 import Exec from "./Exec";
@@ -6,37 +7,27 @@ export interface ExercicioTipo {
    metodo: (str: string) => string;
 }
 const Exercicios = () => {
-   const escolhido = {} as ExercicioTipo;
   const { id } = useParams();
-  switch (id) {
-    case "1":
-      escolhido.titulo = "Dobro de um número";
-      escolhido.metodo = Utilidades.dobro;
-      break;
 
-    case "2":
-      escolhido.titulo = "Máquina de Selos";
-      escolhido.metodo = Utilidades.selos;
-      break;
+  const escolhido = useMemo<ExercicioTipo>(() => {
+    switch (id) {
+      case "1":
+        return { titulo: "Dobro de um número", metodo: Utilidades.dobro };
 
-    /*case "3":
-      escolhido.titulo = "Números Primos";
-      escolhido.metodo = Utilidades.primos;
-      break;*/
+      case "2":
+        return { titulo: "Máquina de Selos", metodo: Utilidades.selos };
 
-    case "4":
-      escolhido.titulo = "Inversão de Algarismos";
-      escolhido.metodo = Utilidades.inverterAlgarismos;
-      break;
+      case "3":
+        return { titulo: "Números Primos", metodo: Utilidades.primos };
 
-    default:
-      escolhido.titulo = "Opção não contemplada";
-      escolhido.metodo = Utilidades.erro;
-      break;
-    
+      case "4":
+        return { titulo: "Inversão de Algarismos", metodo: Utilidades.inverterAlgarismos };
 
+      default:
+        return { titulo: "Opção não contemplada", metodo: Utilidades.erro };
+    }
+  }, [id]);
 
-  }
   return <Exec titulo={escolhido.titulo} metodo={escolhido.metodo} />;
 };
 
